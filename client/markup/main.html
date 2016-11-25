@@ -1,48 +1,71 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4 col-lg-offset-4 centered">
+    <div class="col-lg-4 col-lg-offset-1 centered">
       <form class="form-signin" name="loginForm" ng-submit="login(credentials)" novalidate>
-        <h2 class="form-signin-heading">Ingrese sus credenciales</h2>
-        <fieldset ng-disabled="{{connecting}}">
-            
+        <h2>
+        <span ng-show="!partialAuthenticated && !fullyAuthenticated">
+          <span ng-show="!loginError"
+            >Ingrese sus credenciales</span>
+          <span ng-show="loginError"
+            >{{loginError}}</span>
+        </span>
+        <span ng-show="partialAuthenticated && !fullyAuthenticated">
+          <span ng-show="!completeError" 
+            >Ingrese el codigo de seguridad</span>
+          <span ng-show="completeError"
+            >{{completeError}}</span>
+        </span>
+        <span ng-show="fullyAuthenticated" 
+          ><span ng-hide="logoutError">Hola <span>{{nickName}}</span></span>
+          <span ng-show="logoutError">{{logoutError}}</span>
+          <button ng-click="logout()" nd-disabled="loginout" type="button"
+            class="btn btn-primary pull-right">
+            <icon ng-hide="loginout" class="fa fa-sign-out"></icon>
+            <icon ng-show="loginout" class="fa-spinner fa-spin"></icon>
+          </button>
+        </span>
+        </h2>
+        <fieldset ng-disabled="connecting || partialAuthenticated || fullyAuthenticated">
           <!-- signin general feedback panel -->
           <div class="form-group" data-feedback ng-hide="!loginError">
             <span class="size-h4 text-danger" data-i18n="{{loginError}}"></span>
           </div>
           <div class="form-group" >
-            <label for="inputEmail" class="sr-only">Nickname</label>
-            <input name="nickname"
+            <label for="username" class="sr-only">Username</label>
+            <input 
+              id="username" 
+              name="username"
               ng-model="credentials.username"
-              ng-disabled="{{partialAuthenticated}}"
               type="text" 
               class="form-control" 
-              placeholder="nickname" 
+              placeholder="username" 
               ng-maxlength="20"
               ng-minlength="5"
               required 
               autofocus
             >
-          <div class="form-group" >
           </div>
+          <div class="form-group" >
             <!-- nickname feedback panel -->
             <div class="text-center" 
-              ng-show="invalidSubmit && loginForm.nickname.$invalid">
-              <p ng-show="loginForm.nickname.$error.required">
+              ng-show="invalidSubmit && loginForm.username.$invalid">
+              <p ng-show="loginForm.username.$error.required">
                 <span>Debe ingresar un usuario</span>
               </p>
-              <p ng-show="loginForm.nickname.$error.minlength">
+              <p ng-show="loginForm.username.$error.minlength">
                 <span>Ingrese al menos 5 caracteres</span>
               </p>
-              <p ng-show="loginForm.nickname.$error.maxlength">
+              <p ng-show="loginForm.username.$error.maxlength">
                 <span>Ingrese menos de 20 caracteres</span>
               </p>
             </div>
           </div>
           <div class="form-group" >
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input name="password"
+            <label for="password" class="sr-only">Password</label>
+            <input 
+              id="password"
+              name="password"
               ng-model="credentials.password"
-              ng-disabled="{{partialAuthenticated}}"
               type="password" 
               class="form-control" 
               placeholder="password" 
@@ -50,27 +73,77 @@
               ng-minlength="5"
               required
             >
-          <div class="form-group" >
           </div>
+          <div class="form-group" >
             <!-- password feedback panel -->
             <div class="text-center" 
               ng-show="invalidSubmit && loginForm.password.$invalid">
               <p ng-show="loginForm.password.$error.required">
                 <span>Debe ingresar una contraseña</span>
               </p>
-              <p ng-show="loginForm.password.$error.password">
+              <p ng-show="loginForm.password.$error.minlength">
                 <span>Ingrese al menos 5 caracteres</span>
               </p>
-              <p ng-show="loginForm.password.$error.password">
+              <p ng-show="loginForm.password.$error.maxlength">
                 <span>Ingrese menos de 20 caracteres</span>
               </p>
             </div>
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">
             Iniciar sesión
+            <span ng-show="connecting">
+              <icon class="fa fa-spinner fa-spin"></icon>
+            </span>
           </button>
         </fieldset>
       </form>
+      
+      <form class="form-signin" name="completeForm" ng-submit="complete(credentials)" novalidate>
+        <fieldset ng-disabled="completing || !partialAuthenticated || fullyAuthenticated">
+          <!-- signin general feedback panel -->
+          <div class="form-group" >
+          </div>
+          <div class="form-group" >
+            <label for="codigo" class="sr-only">Código</label>
+            <input 
+              id="codigo"
+              name="codigo"
+              ng-model="credentials.codigo"
+              type="password" 
+              class="form-control" 
+              placeholder="código de seguridad" 
+              ng-maxlength="20"
+              ng-minlength="3"
+              required
+            >
+          </div>
+          <div class="form-group" >
+            <!-- password feedback panel -->
+            <div class="text-center" 
+              ng-show="invalidSubmit && completeForm.codigo.$invalid">
+              <p ng-show="completeForm.codigo.$error.required">
+                <span>Debe ingresar un código</span>
+              </p>
+              <p ng-show="completeForm.codigo.$error.minlength">
+                <span>Ingrese al menos 5 caracteres</span>
+              </p>
+              <p ng-show="completeForm.codigo.$error.maxlength">
+                <span>Ingrese menos de 20 caracteres</span>
+              </p>
+            </div>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Completar
+            <span ng-show="completing">
+              <icon class="fa fa-spinner fa-spin"></icon>
+            </span>
+          </button>
+        </fieldset>
+      </form>
+    </div>
+    <div 
+      ng-include="'markup/frame/panels.html'"
+      class="col-lg-4 col-lg-offset-1 centered">
     </div>
   </div>
 </div>

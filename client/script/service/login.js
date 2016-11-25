@@ -12,7 +12,8 @@ angular.module('application')
           method: 'POST',
           url: loginPath,
           data: $.param(credentials),
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          withCredentials: true
         });
       },
       complete: function(code){
@@ -21,7 +22,15 @@ angular.module('application')
           method: 'POST',
           url: completePath,
           data: $.param({code:code}),
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          withCredentials: true
+        });
+      },
+      logout: function(){
+        var logoutPath = services.application + '/logout';
+        return $http({
+          method: 'GET',
+          url: logoutPath
         });
       }
     };

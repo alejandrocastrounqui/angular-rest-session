@@ -11,6 +11,7 @@ angular.module('application')
         return $http({
           method: 'GET',
           url: corsPath,
+          withCredentials: true
         });
       }
     };

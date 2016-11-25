@@ -1,1 +1,31 @@
 
+.paneles-response{
+  height: 100vh; 
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.paneles-response .panel-body{
+  padding-top: 0;
+}
+
+.paneles-viewport{
+  overflow-y: auto;
+  height: 100%;
+  padding-right: 10px;
+}
+
+.paneles-viewport .label{
+  margin-top: 2px;
+  float: left;
+  clear: left;
+  width: 100%;
+  text-align: left;
+  white-space: pre;
+  overflow-x: hidden;
+}
+.paneles-viewport .label.message{
+  margin-top: 10px;
+}

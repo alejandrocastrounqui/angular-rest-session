@@ -1,0 +1,18 @@
+<div class="paneles-response">
+  <div class="paneles-viewport">
+    paneles
+    <div ng-repeat="panel in panels" class="">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Prueba {{panel.index}}</h3>
+        </div>
+        <div class="panel-body">
+          <div ng-repeat="container in panel" >
+            <span class="label label-info message">{{container.message}}</span>
+            <span class="label" ng-class="container.success? 'label-success': 'label-danger'">{{container.data | json}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
