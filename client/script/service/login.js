@@ -30,7 +30,8 @@ angular.module('application')
         var logoutPath = services.application + '/logout';
         return $http({
           method: 'GET',
-          url: logoutPath
+          url: logoutPath,
+          withCredentials: true
         });
       }
     };
