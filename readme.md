@@ -1,12 +1,9 @@
+<a href="https://github.com/alejandrocastrounqui">
+    <img src="readme/profile.jpg" width=100px>
+</a>
+Autor: Alejandro Castro 
 
-<div id="header" style="width:100%; float:left">
-  <div id="title" style="width:80%; float:left">
-    <h2>Angular cookie based security</h2>
-  </div>
-  <div id="profile" style="width:20%; float:left">
-   <img src="readme/profile.jpg" style="width:100%; float:left">
-  </div>
-</div>
+###Angular cookie based security
 
 Este repositorio aloja un proyecto Angular que administra una sesión totalmente REST con un servidor de datos.    
 
